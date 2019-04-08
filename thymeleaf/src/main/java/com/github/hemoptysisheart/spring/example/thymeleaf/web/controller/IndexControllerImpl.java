@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Random;
 
 import static java.lang.String.format;
 import static org.slf4j.LoggerFactory.getLogger;
@@ -21,6 +22,7 @@ class IndexControllerImpl implements IndexController {
     }
 
     model.addAttribute("colors", List.of("blue", "dark", "red", "white"));
+    model.addAttribute("random", new Random());
 
     String template = format("layouts/%s", color);
 
