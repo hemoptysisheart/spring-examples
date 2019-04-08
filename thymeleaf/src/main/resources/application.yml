@@ -1,0 +1,6 @@
+spring:
+  thymeleaf:
+    prefix: 'file:./templates/'
+logging:
+  level:
+    root: warn

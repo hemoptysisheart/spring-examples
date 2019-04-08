@@ -1,0 +1,7 @@
+spring:
+  thymeleaf:
+    cache: false
+logging:
+  level:
+    root: info
+    com.github.hemoptysisheart.spring.example.thymeleaf: trace

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:lang="${#locale}">
+<head>
+    <meta name="author" content="justburrow" th:remove="all"/>
+    <meta name="since" content="2019-04-08 23:36" th:remove="all"/>
+    <meta charset="UTF-8"/>
+    <title>colors</title>
+</head>
+<body>
+<main>
+    <h1>colors</h1>
+    <!--/*@thymesVar id="colors" type="java.util.List<java.lang.String>"*/-->
+    <ul th:fragment="list(colors)">
+        <li th:each="color : ${colors}">
+            <a href="#" th:href="@{/(color=${color})}">
+                <span th:text="${color}">color</span>
+            </a>
+        </li>
+    </ul>
+</main>
+<section id="tail">
+    <script src="../js/jquery-3.3.1.slim.js"></script>
+    <script src="../js/popper.js"></script>
+    <script src="../js/bootstrap.js"></script>
+</section>
+</body>
+</html>
