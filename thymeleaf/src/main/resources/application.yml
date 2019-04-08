@@ -1,7 +1,6 @@
 spring:
   thymeleaf:
-    cache: true
-    prefix: file:./templates/
+    prefix: 'file:./templates/'
 logging:
   level:
     root: warn

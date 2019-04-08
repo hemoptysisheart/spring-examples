@@ -15,6 +15,6 @@ class IndexControllerImpl implements IndexController {
       log.trace("args : N/A");
     }
 
-    return "layout/index";
+    return "layouts/index";
   }
 }
