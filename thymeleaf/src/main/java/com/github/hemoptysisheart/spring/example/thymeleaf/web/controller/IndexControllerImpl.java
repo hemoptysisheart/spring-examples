@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 import static java.lang.String.format;
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -17,6 +19,8 @@ class IndexControllerImpl implements IndexController {
     if (log.isTraceEnabled()) {
       log.trace("args : color={}, model={}", color, model);
     }
+
+    model.addAttribute("colors", List.of("blue", "dark", "red", "white"));
 
     String template = format("layouts/%s", color);
 

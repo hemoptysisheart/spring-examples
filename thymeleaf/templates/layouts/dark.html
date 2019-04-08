@@ -13,6 +13,13 @@
 <main id="main" class="text-white bg-dark">
     <h1>Index</h1>
     <p>Hello World! Thymeleaf version.</p>
+    <!--/*@thymesVar id="colors" type="java.util.List<java.lang.String>"*/-->
+    <ul th:replace="components/colors :: list(${colors})">
+        <li><a href="#">aaa</a></li>
+        <li><a href="#">aaa</a></li>
+        <li><a href="#">aaa</a></li>
+        <li><a href="#">aaa</a></li>
+    </ul>
 </main>
 <section id="tail" th:replace="components/tail :: component">
     <script src="../js/jquery-3.3.1.slim.js"></script>
