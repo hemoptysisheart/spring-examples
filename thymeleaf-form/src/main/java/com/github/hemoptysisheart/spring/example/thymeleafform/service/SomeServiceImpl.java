@@ -29,7 +29,7 @@ class SomeServiceImpl implements SomeService {
     } else if (FIELD_NAMES.contains(cmd.getField())) {
       exception = new SomeException(cmd.getField() + " has some error.", cmd.getField());
     } else {
-      exception = new SomeException("there is unknown error : '" + cmd.getField() + "'", null);
+      exception = new SomeException("There is unknown service logic error : '" + cmd.getField() + "'", null);
     }
 
     if (null != exception) {

@@ -80,6 +80,11 @@ public class FormInput {
     this.errSource = errSource;
   }
 
+  public void clearError() {
+    this.error = false;
+    this.errSource = null;
+  }
+
   @Override
   public String toString() {
     return new StringJoiner(", ", FormInput.class.getSimpleName() + "[", "]")

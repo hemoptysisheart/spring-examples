@@ -28,9 +28,12 @@ class IndexControllerImpl implements IndexController {
   private SomeService someService;
 
   private String doForm(Model model) {
-    if (!model.containsAttribute(ModelAttributes.INPUT_NAME)) {
+    if (model.containsAttribute(ModelAttributes.INPUT_NAME)) {
+      ((FormInput) model.asMap().get(ModelAttributes.INPUT_NAME)).clearError();
+    } else {
       model.addAttribute(ModelAttributes.INPUT_NAME, new FormInput());
     }
+
     if (!model.containsAttribute(ModelAttributes.ERROR_SOURCES)) {
       model.addAttribute(ModelAttributes.ERROR_SOURCES,
           Arrays.asList("number", "text", "email", "password", "passwordConfirm"));
