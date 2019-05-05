@@ -1,4 +1,4 @@
-package com.github.hemoptysisheart.spring.example.thymeleaf.runner;
+package com.github.hemoptysisheart.spring.example.thymeleafform.runner;
 
 import org.slf4j.Logger;
 import org.springframework.boot.SpringApplication;
