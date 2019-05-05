@@ -12,6 +12,9 @@
     <!--/*@thymesVar id="input" type="com.github.hemoptysisheart.spring.example.thymeleafform.web.controller.input.FormInput"*/-->
     <form action="form.html" method="post"
           th:action="@{/}" th:object="${input}">
+        <ul th:if="${#fields.hasGlobalErrors()}">
+            <li th:each="err : ${#fields.globalErrors()}" th:text="${err}">global error</li>
+        </ul>
         <div>
             <label for="number">NUMBER</label>
             <input type="number" id="number" th:field="*{number}"/>
