@@ -72,6 +72,7 @@
             <select th:field="*{errSource}">
                 <option value=""></option>
                 <!--/*@thymesVar id="errorSources" type="java.util.List<java.lang.String>"*/-->
+                <option value="unknown error">unknown error.</option>
                 <option value="number"
                         th:each="errSrc : ${errorSources}"
                         th:value="${errSrc}" th:text="${errSrc}">
@@ -81,11 +82,11 @@
                 <option value="email" th:remove="all">email</option>
                 <option value="password" th:remove="all">password</option>
                 <option value="passwordConfirm" th:remove="all">password confirm</option>
-                <option value="unknown error">unknown error.</option>
             </select>
         </div>
         <div>
             <button>SUBMIT</button>
+            <button type="reset">RESET</button>
         </div>
     </form>
 </main>
