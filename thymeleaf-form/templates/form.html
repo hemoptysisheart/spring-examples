@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:lang="${#locale}">
+<head>
+    <meta name="since" content="2019-05-05 18:10" th:remove="all"/>
+    <meta charset="UTF-8"/>
+    <title>Form</title>
+</head>
+<body>
+<main>
+    <h1>Form</h1>
+    <!--/*@thymesVar id="input" type="com.github.hemoptysisheart.spring.example.thymeleafform.web.controller.input.FormInput"*/-->
+    <form action="form.html" method="post"
+          th:action="@{/}" th:object="${input}">
+        <ul th:if="${#fields.hasGlobalErrors()}">
+            <li th:each="err : ${#fields.globalErrors()}" th:text="${err}">global error</li>
+        </ul>
+        <div>
+            <label for="number">NUMBER</label>
+            <input type="number" id="number" th:field="*{number}"/>
+            <ul th:if="${#fields.hasErrors('number')}">
+                <li th:each="err : ${#fields.errors('number')}"
+                    th:text="${err}">
+                    number field error.
+                </li>
+            </ul>
+        </div>
+        <div>
+            <label for="text">TEXT</label>
+            <input id="text" th:field="*{text}"/>
+            <ul th:if="${#fields.hasErrors('text')}">
+                <li th:each="err : ${#fields.errors('text')}"
+                    th:text="${err}">
+                    text field error.
+                </li>
+            </ul>
+        </div>
+        <div>
+            <label for="email">E-MAIL</label>
+            <input type="email" id="email" th:field="*{email}"/>
+            <ul th:if="${#fields.hasErrors('email')}">
+                <li th:each="err : ${#fields.errors('email')}"
+                    th:text="${err}">
+                    email field error.
+                </li>
+            </ul>
+        </div>
+        <div>
+            <label for="password">PASSWORD</label>
+            <input type="password" id="password" th:field="*{password}"/>
+            <ul th:if="${#fields.hasErrors('password')}">
+                <li th:each="err : ${#fields.errors('password')}"
+                    th:text="${err}">
+                    password field error.
+                </li>
+            </ul>
+        </div>
+        <div>
+            <label for="password-confirm">PASSWORD CONFIRM</label>
+            <input type="password" id="password-confirm" th:field="*{passwordConfirm}"/>
+            <ul th:if="${#fields.hasErrors('passwordConfirm')}">
+                <li th:each="err : ${#fields.errors('passwordConfirm')}"
+                    th:text="${err}">
+                    password confirm field error.
+                </li>
+            </ul>
+        </div>
+        <div>
+            <label>
+                <input type="checkbox" th:field="*{error}"/> logic error
+            </label>
+            <select th:field="*{errSource}">
+                <option value=""></option>
+                <!--/*@thymesVar id="errorSources" type="java.util.List<java.lang.String>"*/-->
+                <option value="unknown error">unknown error.</option>
+                <option value="number"
+                        th:each="errSrc : ${errorSources}"
+                        th:value="${errSrc}" th:text="${errSrc}">
+                    number
+                </option>
+                <option value="text" th:remove="all">text</option>
+                <option value="email" th:remove="all">email</option>
+                <option value="password" th:remove="all">password</option>
+                <option value="passwordConfirm" th:remove="all">password confirm</option>
+            </select>
+        </div>
+        <div>
+            <button>SUBMIT</button>
+            <button type="reset">RESET</button>
+        </div>
+    </form>
+</main>
+</body>
+</html>
