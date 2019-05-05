@@ -67,8 +67,12 @@ class IndexControllerImpl implements IndexController {
   }
 
   @Override
-  public String submit(@ModelAttribute @Valid final FormInput input, final BindingResult result,
+  public String submit(
+      @ModelAttribute(ModelAttributes.INPUT_NAME) @Valid final FormInput input, final BindingResult result,
       final Model model) {
+    if (log.isTraceEnabled()) {
+      log.trace("args : input={}, result={}, model={}", input, result, model);
+    }
 
     String password = input.getPassword();
     if (null != password && !password.equals(input.getPasswordConfirm())) {
@@ -81,7 +85,9 @@ class IndexControllerImpl implements IndexController {
         : doSubmit(input, result, model);
 
     if (log.isTraceEnabled()) {
-      log.trace("result : template={}, result={}, model={}", template, result, model);
+      log.trace("result : template={}", template);
+      log.trace("result : result={}", result);
+      log.trace("result : model={}", model);
     }
     return template;
   }

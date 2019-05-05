@@ -1,5 +1,6 @@
 package com.github.hemoptysisheart.spring.example.thymeleafform.web.controller;
 
+import com.github.hemoptysisheart.spring.example.thymeleafform.web.configuration.ModelAttributes;
 import com.github.hemoptysisheart.spring.example.thymeleafform.web.controller.input.FormInput;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,5 +17,5 @@ public interface IndexController {
   String form(final Model model);
 
   @PostMapping
-  String submit(@ModelAttribute @Valid FormInput input, BindingResult result, Model model);
+  String submit(@ModelAttribute(ModelAttributes.INPUT_NAME) @Valid FormInput input, BindingResult result, Model model);
 }

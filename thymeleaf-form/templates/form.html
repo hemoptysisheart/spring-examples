@@ -15,22 +15,52 @@
         <div>
             <label for="number">NUMBER</label>
             <input type="number" id="number" th:field="*{number}"/>
+            <ul th:if="${#fields.hasErrors('number')}">
+                <li th:each="err : ${#fields.errors('number')}"
+                    th:text="${err}">
+                    number field error.
+                </li>
+            </ul>
         </div>
         <div>
             <label for="text">TEXT</label>
             <input id="text" th:field="*{text}"/>
+            <ul th:if="${#fields.hasErrors('text')}">
+                <li th:each="err : ${#fields.errors('text')}"
+                    th:text="${err}">
+                    text field error.
+                </li>
+            </ul>
         </div>
         <div>
             <label for="email">E-MAIL</label>
             <input type="email" id="email" th:field="*{email}"/>
+            <ul th:if="${#fields.hasErrors('email')}">
+                <li th:each="err : ${#fields.errors('email')}"
+                    th:text="${err}">
+                    email field error.
+                </li>
+            </ul>
         </div>
         <div>
             <label for="password">PASSWORD</label>
             <input type="password" id="password" th:field="*{password}"/>
+            <ul th:if="${#fields.hasErrors('password')}">
+                <li th:each="err : ${#fields.errors('password')}"
+                    th:text="${err}">
+                    password field error.
+                </li>
+            </ul>
         </div>
         <div>
             <label for="password-confirm">PASSWORD CONFIRM</label>
             <input type="password" id="password-confirm" th:field="*{passwordConfirm}"/>
+            <ul th:if="${#fields.hasErrors('passwordConfirm')}">
+                <li th:each="err : ${#fields.errors('passwordConfirm')}"
+                    th:text="${err}">
+                    password confirm field error.
+                </li>
+            </ul>
         </div>
         <div>
             <label>
@@ -48,6 +78,7 @@
                 <option value="email" th:remove="all">email</option>
                 <option value="password" th:remove="all">password</option>
                 <option value="passwordConfirm" th:remove="all">password confirm</option>
+                <option value="unknown error">unknown error.</option>
             </select>
         </div>
         <div>
