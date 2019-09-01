@@ -38,6 +38,9 @@ dependencyManagement {
   }
 
   dependencies {
+    dependency("com.google.protobuf:protoc:3.9.1")
+    dependency("io.grpc:protoc-gen-grpc-java:1.23.0")
+
     dependency("com.google.protobuf:protobuf-java:3.9.1")
     dependency("com.google.protobuf:protobuf-java-util:3.9.1")
     dependency("io.grpc:grpc-protobuf:1.23.0")
