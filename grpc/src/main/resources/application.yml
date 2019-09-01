@@ -1,6 +1,9 @@
 server:
   http2:
     enabled: true
+  tomcat:
+    resource:
+      allow-caching: false
 
 logging:
   level:
