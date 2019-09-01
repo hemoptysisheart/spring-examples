@@ -1,0 +1,23 @@
+package com.github.hemoptysisheart.spring.example.grpc.runner;
+
+import org.slf4j.Logger;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.ApplicationPidFileWriter;
+
+import static org.slf4j.LoggerFactory.getLogger;
+
+/**
+ * @author justburrow
+ * @since 2019/09/01
+ */
+@SpringBootApplication(scanBasePackages = "com.github.hemoptysisheart.spring.example.grpc")
+public class GrpcRunner {
+  private static final Logger log = getLogger(GrpcRunner.class);
+
+  public static void main(String... args) {
+    SpringApplication application = new SpringApplication(GrpcRunner.class);
+    application.addListeners(new ApplicationPidFileWriter());
+    application.run(args);
+  }
+}
