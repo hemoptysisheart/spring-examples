@@ -1,7 +1,6 @@
 syntax = "proto3";
 
-option java_package = "com.github.hemoptysisheart.spring.example.grpc.grpc";
-option java_outer_classname = "PingServiceProto";
+option java_package = "com.github.hemoptysisheart.spring.example.grpc.api.stub";
 
 import "ping/ping_request.proto";
 import "ping/ping_response.proto";

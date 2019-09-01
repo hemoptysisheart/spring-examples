@@ -46,12 +46,15 @@ dependencyManagement {
     dependency("io.grpc:grpc-protobuf:1.23.0")
     dependency('io.grpc:grpc-stub:1.23.0')
     dependency('io.grpc:grpc-netty:1.23.0')
+
+    dependency("io.github.lognet:grpc-spring-boot-starter:3.4.1")
   }
 }
 
 dependencies {
   implementation("org.springframework.boot:spring-boot-starter-web")
   implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+  implementation("io.github.lognet:grpc-spring-boot-starter")
 
   implementation('com.google.protobuf:protobuf-java')
   implementation('io.grpc:grpc-protobuf')
