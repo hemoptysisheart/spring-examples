@@ -44,6 +44,8 @@ dependencyManagement {
     dependency("com.google.protobuf:protobuf-java:3.9.1")
     dependency("com.google.protobuf:protobuf-java-util:3.9.1")
     dependency("io.grpc:grpc-protobuf:1.23.0")
+    dependency('io.grpc:grpc-stub:1.23.0')
+    dependency('io.grpc:grpc-netty:1.23.0')
   }
 }
 
@@ -53,6 +55,8 @@ dependencies {
 
   implementation('com.google.protobuf:protobuf-java')
   implementation('io.grpc:grpc-protobuf')
+  implementation('io.grpc:grpc-stub')
+  implementation('io.grpc:grpc-netty')
 
   if (JavaVersion.current().isJava9Compatible()) {
     compileOnly 'javax.annotation:javax.annotation-api'
