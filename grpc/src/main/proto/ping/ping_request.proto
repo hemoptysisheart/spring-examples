@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option java_package = "com.github.hemoptysisheart.spring.example.grpc.grpc";
+option java_outer_classname = "PingRequestProto";
+
+package ping;
+
+message PingRequest {
+}
