@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 PROTO_DIR="src/main/proto"
-JS_OUT_DIR="src/main/resources/files/js/grpc"
+JS_OUT_DIR="src/main/resources/files/js/"
 
 [ -d $JS_OUT_DIR ] || mkdir -p $JS_OUT_DIR
 
