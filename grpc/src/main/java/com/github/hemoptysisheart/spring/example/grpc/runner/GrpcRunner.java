@@ -2,8 +2,10 @@ package com.github.hemoptysisheart.spring.example.grpc.runner;
 
 import org.slf4j.Logger;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.ApplicationPidFileWriter;
+import org.springframework.context.ApplicationContext;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -18,6 +20,14 @@ public class GrpcRunner {
   public static void main(String... args) {
     SpringApplication application = new SpringApplication(GrpcRunner.class);
     application.addListeners(new ApplicationPidFileWriter());
-    application.run(args);
+    application.setWebApplicationType(WebApplicationType.SERVLET);
+
+    final ApplicationContext ctx = application.run(args);
+
+    if (log.isTraceEnabled()) {
+      for (String name : ctx.getBeanDefinitionNames()) {
+        log.trace("{}={}", name, ctx.getBean(name));
+      }
+    }
   }
 }

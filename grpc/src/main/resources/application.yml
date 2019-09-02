@@ -1,6 +1,8 @@
+spring:
+  thymeleaf:
+    cache: false
+
 server:
-  http2:
-    enabled: true
   tomcat:
     resource:
       allow-caching: false
