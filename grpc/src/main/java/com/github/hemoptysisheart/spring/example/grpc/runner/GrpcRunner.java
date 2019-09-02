@@ -24,9 +24,9 @@ public class GrpcRunner {
 
     final ApplicationContext ctx = application.run(args);
 
-    if (log.isTraceEnabled()) {
+    if (log.isInfoEnabled()) {
       for (String name : ctx.getBeanDefinitionNames()) {
-        log.trace("{}={}", name, ctx.getBean(name));
+        log.info("{}={}", name, ctx.getBean(name));
       }
     }
   }
