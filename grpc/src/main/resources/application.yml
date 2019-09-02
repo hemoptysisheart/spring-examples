@@ -16,3 +16,4 @@ logging:
   level:
     root: warn
     com.github.hemoptysisheart.spring.example.grpc: trace
+    com.github.hemoptysisheart.spring.example.grpc.runner: warn

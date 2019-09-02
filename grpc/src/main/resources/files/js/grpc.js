@@ -7,5 +7,5 @@ let client = new PingServiceClient('http://localhost:5656');
 let request = new PingRequest();
 
 client.ping(request, {}, function (err, response) {
-  console.debug("err", err, "response", response);
+  console.debug("ping callback", "err", err, "response", response);
 });
