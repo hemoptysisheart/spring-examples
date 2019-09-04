@@ -4,7 +4,14 @@ const {PingServiceClient} = require('./ping/ping_service_grpc_web_pb');
 
 let client = new PingServiceClient('http://localhost:5656');
 
-let request = new PingRequest();
-client.ping(request, {}, function (err, response) {
-  console.debug("ping callback", "err", err, "response", response);
+$(document).ready(function () {
+  console.log("jQuery ready!");
+
+  $("#ping-bt").click(function (evt) {
+    console.debug("evt", evt)
+    let request = new PingRequest();
+    client.ping(request, {}, function (err, response) {
+      console.debug("ping callback", "err", err, "response", response);
+    });
+  });
 });
