@@ -108,5 +108,6 @@ protobuf {
 idea {
   module {
     sourceDirs += file("${projectDir}/src/main/proto")
+    sourceDirs += file("${projectDir}/src/main/webpack")
   }
 }
