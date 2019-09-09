@@ -17,7 +17,12 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "google-protobuf": "^3.10.0-rc.1",
+    "grpc-web": "^1.0.6"
+  },
   "devDependencies": {
+    "browserify": "^16.5.0",
     "webpack": "^4.39.3",
     "webpack-cli": "^3.3.8"
   }
