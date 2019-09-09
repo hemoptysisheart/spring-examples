@@ -26,7 +26,7 @@ public class GrpcRunner {
 
     if (log.isInfoEnabled()) {
       for (String name : ctx.getBeanDefinitionNames()) {
-        log.info("{}={}", name, ctx.getBean(name));
+        log.info("bean : {}={}", name, ctx.getBean(name));
       }
     }
   }
