@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+option java_package = "com.github.hemoptysisheart.spring.example.grpc.api.message";
+option java_outer_classname = "PingResponseProto";
+
+package ping;
+
+message PingResponse {
+    /*
+     * Received timestamp in UTC Milliseconds.
+     */
+    int64 timestamp = 1;
+}

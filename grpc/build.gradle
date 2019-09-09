@@ -1,0 +1,112 @@
+import org.springframework.boot.gradle.plugin.SpringBootPlugin
+
+buildscript {
+  repositories {
+    mavenCentral()
+    jcenter()
+  }
+
+  dependencies {
+    classpath "org.springframework.boot:spring-boot-gradle-plugin:2.1.7.RELEASE"
+    classpath 'io.spring.gradle:dependency-management-plugin:1.0.8.RELEASE'
+    classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.10'
+  }
+}
+
+apply plugin: 'java'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'com.google.protobuf'
+
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+
+group 'com.github.hemoptysisheart.spring.example'
+version '0.0.1.SNAPSHOT'
+
+sourceCompatibility = 12
+targetCompatibility = 12
+
+repositories {
+  mavenCentral()
+  jcenter()
+}
+
+dependencyManagement {
+  imports {
+    mavenBom(SpringBootPlugin.BOM_COORDINATES)
+  }
+
+  dependencies {
+    dependency("com.google.protobuf:protoc:3.9.1")
+    dependency("io.grpc:protoc-gen-grpc-java:1.23.0")
+
+    dependency("com.google.protobuf:protobuf-java:3.9.1")
+    dependency("com.google.protobuf:protobuf-java-util:3.9.1")
+    dependency("io.grpc:grpc-protobuf:1.23.0")
+    dependency('io.grpc:grpc-stub:1.23.0')
+    dependency('io.grpc:grpc-netty:1.23.0')
+
+    dependency("io.github.lognet:grpc-spring-boot-starter:3.4.1")
+  }
+}
+
+dependencies {
+  implementation("org.springframework.boot:spring-boot-starter-web")
+  implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+  implementation("io.github.lognet:grpc-spring-boot-starter")
+
+  implementation('com.google.protobuf:protobuf-java')
+  implementation('io.grpc:grpc-protobuf')
+  implementation('io.grpc:grpc-stub')
+  implementation('io.grpc:grpc-netty')
+
+  if (JavaVersion.current().isJava9Compatible()) {
+    compileOnly 'javax.annotation:javax.annotation-api'
+  }
+}
+
+sourceSets {
+  main {
+    proto {
+      srcDir 'src/main/proto'
+    }
+
+    java {
+      srcDir "${protobuf.generatedFilesBaseDir}/main/grpc"
+      srcDir "${protobuf.generatedFilesBaseDir}/main/java"
+    }
+  }
+
+  test {
+    proto {
+      srcDir 'src/test/proto'
+    }
+  }
+}
+
+protobuf {
+  protoc {
+    artifact = "com.google.protobuf:protoc"
+  }
+
+  plugins {
+    grpc { artifact = "io.grpc:protoc-gen-grpc-java" }
+  }
+
+  clean {
+    delete generatedFilesBaseDir
+  }
+
+  generateProtoTasks {
+    all()*.plugins {
+      grpc {}
+    }
+  }
+}
+
+idea {
+  module {
+    sourceDirs += file("${projectDir}/src/main/proto")
+  }
+}

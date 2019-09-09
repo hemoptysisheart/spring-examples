@@ -1,0 +1,19 @@
+spring:
+  thymeleaf:
+    cache: false
+
+server:
+  tomcat:
+    resource:
+      allow-caching: false
+
+grpc:
+  port: 6565
+
+logging:
+  pattern:
+    console: '%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} - %clr(%p) %clr(---){faint} %clr([%t]){faint} %clr(%logger#%M [L.%L]){cyan} %clr(:){faint} %m%n%wEx'
+  level:
+    root: warn
+    com.github.hemoptysisheart.spring.example.grpc: trace
+    com.github.hemoptysisheart.spring.example.grpc.runner: warn
