@@ -10,6 +10,6 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "./src/main/resources/files/js"),
     filename: "app.js",
-    libraryTarget: "commonjs"
+    libraryTarget: "umd"
   }
 };
