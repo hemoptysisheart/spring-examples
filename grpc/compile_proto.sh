@@ -19,10 +19,4 @@ echo
 echo "after :"
 gls -l --time-style=full-iso $PROTO_JS_OUT_DIR/ping
 
-#echo
-#echo "git status :"
-#git status $JS_OUT_DIR/ping
-#
-#cd $JS_OUT_DIR
-#npm clean-install
-#npx webpack grpc.js
+npm run build
