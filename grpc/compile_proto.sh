@@ -12,11 +12,14 @@ rm -rf $PROTO_JS_OUT_DIR/ping
 for PROTO in $(ls $PROTO_DIR/ping)
 do
     protoc -I=$PROTO_DIR ping/$PROTO --js_out=import_style=commonjs:$PROTO_JS_OUT_DIR
-    protoc -I=$PROTO_DIR ping/$PROTO --grpc-web_out=import_style=commonjs,mode=grpcweb:$PROTO_JS_OUT_DIR
 done
+protoc -I=$PROTO_DIR ping/ping_service.proto --grpc-web_out=import_style=commonjs,mode=grpcweb:$PROTO_JS_OUT_DIR
 
 echo
 echo "after :"
 gls -l --time-style=full-iso $PROTO_JS_OUT_DIR/ping
 
+echo
+echo "npm :"
+npm install
 npm run build
