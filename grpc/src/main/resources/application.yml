@@ -6,6 +6,7 @@ spring:
     cache: false
 
 server:
+  #  port: 9090
   tomcat:
     resource:
       allow-caching: false
