@@ -1,4 +1,7 @@
 spring:
+  pid:
+    fail-on-write-error: true
+    file: application.pid
   thymeleaf:
     cache: false
 
@@ -11,8 +14,10 @@ grpc:
   port: 6565
 
 logging:
+  file: application.log
   pattern:
     console: '%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} - %clr(%p) %clr(---){faint} %clr([%t]){faint} %clr(%logger#%M [L.%L]){cyan} %clr(:){faint} %m%n%wEx'
+    file: '%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} - %clr(%p) %clr(---){faint} %clr([%t]){faint} %clr(%logger#%M [L.%L]){cyan} %clr(:){faint} %m%n%wEx'
   level:
     root: warn
     com.github.hemoptysisheart.spring.example.grpc: trace

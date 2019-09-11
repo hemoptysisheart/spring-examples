@@ -105,6 +105,10 @@ protobuf {
   }
 }
 
+bootJar {
+  launchScript()
+}
+
 idea {
   module {
     sourceDirs += file("${projectDir}/src/main/proto")
