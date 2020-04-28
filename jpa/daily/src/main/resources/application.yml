@@ -1,0 +1,24 @@
+spring:
+  pid:
+    file: koblattown-standalone.pid
+  datasource:
+    hikari:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://localhost/jpa-daily?connectionCollation=utf8mb4_unicode_ci&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Seoul
+      username: root
+      password: ''
+  jpa:
+    open-in-view: false
+    show-sql: false
+
+logging:
+  file:
+    path: file:./log/
+    max-history: 30
+    max-size: 100MB
+  pattern:
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%p) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%t - %X]){faint} %clr(%logger){cyan} %clr(:){faint} %m%n%wEx"
+    file: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%p) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%t - %X]){faint} %clr(%logger){cyan} %clr(:){faint} %m%n%wEx"
+  level:
+    root: info
+    org.hibernate.SQL: debug

@@ -14,6 +14,9 @@ buildscript {
 group = 'com.github.hemoptysisheart.spring.examples'
 version = '0.0.1-SNAPSHOT'
 
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+
 repositories {
   jcenter()
   mavenCentral()
@@ -28,24 +31,39 @@ subprojects {
 
   sourceCompatibility = 11
 
+  repositories {
+    jcenter()
+    mavenCentral()
+    mavenLocal()
+  }
+
+  configurations {
+    developmentOnly
+    runtimeClasspath {
+      extendsFrom developmentOnly
+    }
+  }
+
   dependencyManagement {
     imports {
       mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
     }
 
     dependencies {
-      dependency "org.assertj:assertj-core:3.14.0"
-      dependency "org.apache.commons:commons-lang3:3.9"
+      dependency('org.apache.commons:commons-lang3:3.9')
     }
   }
 
   dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+
+    annotationProcessor('org.springframework.boot:spring-boot-configuration-processor')
+
+    developmentOnly('org.springframework.boot:spring-boot-devtools')
 
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
       exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
-    testImplementation('org.assertj:assertj-core')
     testImplementation('org.apache.commons:commons-lang3')
   }
 
