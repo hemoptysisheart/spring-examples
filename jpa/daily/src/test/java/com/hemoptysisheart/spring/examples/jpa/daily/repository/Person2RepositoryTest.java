@@ -60,28 +60,28 @@ class Person2RepositoryTest {
   @Test
   void test_save_with_diary() {
     // GIVEN
-    Person2 person = this.repository.saveAndFlush(new Person2("person2"));
+    Person2 person = new Person2("person2");
     log.info("GIVEN - person={}", person);
 
     Diary2 diary = new Diary2(person, LocalDate.now(), "diary2 content.");
+    person.add(diary);
     log.info("GIVEN - diary={}", diary);
 
-
     // WHEN
-    person.add(diary);
-    this.entityManager.flush();
+    Person2 saved = this.repository.saveAndFlush(person);
+    log.info("WHEN - saved={}", saved);
     this.entityManager.clear();
-    Person2 actual = this.repository.findById(person.getId()).get();
-    log.info("WHEN - actual={}", actual);
 
     // THEN
-    assertThat(actual)
+    Person2 target = this.repository.findById(saved.getId()).get();
+    log.info("THEN - target={}", target);
+    assertThat(target)
         .isNotNull()
         .isEqualTo(person)
         .isNotSameAs(person);
-    assertThat(actual.getDiary())
+    assertThat(target.getDiary())
         .hasSize(1);
-    assertThat(actual.getDiary().get(0))
+    assertThat(target.getDiary().get(0))
         .isNotNull()
         .extracting(Diary2::getId, Diary2::getContent)
         .containsSequence(new Diary2.Diary2Id(person, LocalDate.now()), "diary2 content.");
