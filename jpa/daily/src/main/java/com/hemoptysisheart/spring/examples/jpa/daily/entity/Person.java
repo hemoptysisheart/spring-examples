@@ -1,6 +1,9 @@
 package com.hemoptysisheart.spring.examples.jpa.daily.entity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import static java.lang.String.format;
@@ -18,6 +21,9 @@ public class Person {
   private long id;
   @Column(name = "name", nullable = false, unique = true)
   private String name;
+  @OneToMany(mappedBy = "person")
+  @MapKey(name = "date")
+  private Map<LocalDate, Diary> diary = new HashMap<>();
 
   public Person() {
   }
@@ -39,6 +45,23 @@ public class Person {
     this.name = name;
   }
 
+  public Map<LocalDate, Diary> getDiary() {
+    return this.diary;
+  }
+
+  public Diary getDiary(LocalDate date) {
+    if (null == date)
+      throw new IllegalArgumentException("date is null.");
+    return this.diary.get(date);
+  }
+
+  public void add(Diary diary) {
+    if (null == diary)
+      throw new IllegalArgumentException("diary is null.");
+
+    this.diary.put(diary.getDate(), diary);
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -54,6 +77,6 @@ public class Person {
 
   @Override
   public String toString() {
-    return format("(id=%d, name='%s')", this.id, this.name);
+    return format("(id=%d, name='%s', diary=%s)", this.id, this.name, this.diary);
   }
 }

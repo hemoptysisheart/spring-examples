@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ import static org.slf4j.LoggerFactory.getLogger;
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = JpaDailyTestConfiguration.class)
+@Transactional
 public class PersonRepositoryTest {
   protected static final Logger log = getLogger(PersonRepositoryTest.class);
 

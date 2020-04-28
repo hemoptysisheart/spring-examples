@@ -19,10 +19,10 @@ public class Diary {
   @Column(name = "id", nullable = false, unique = true, insertable = false, updatable = false)
   private long id;
   @ManyToOne(targetEntity = Person.class, optional = false)
-  @JoinColumn(name = "person", nullable = false, insertable = false, updatable = false,
+  @JoinColumn(name = "person", nullable = false, updatable = false,
       foreignKey = @ForeignKey(name = "fk_diary_pk_person"), referencedColumnName = "id")
   private Person person;
-  @Column(name = "date", nullable = false, insertable = false, updatable = false)
+  @Column(name = "date", nullable = false, updatable = false)
   private LocalDate date;
   @Column(name = "content", nullable = false)
   private String content;
@@ -35,6 +35,8 @@ public class Diary {
   }
 
   public Diary(Person person, LocalDate date, String content) {
+    if (null == person) throw new IllegalArgumentException("person is null.");
+    if (null == date) throw new IllegalArgumentException("date is null.");
     if (null == content) throw new IllegalArgumentException("content is null.");
 
     this.person = person;
