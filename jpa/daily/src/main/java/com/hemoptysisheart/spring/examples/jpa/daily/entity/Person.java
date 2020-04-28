@@ -22,7 +22,7 @@ public class Person {
   private long id;
   @Column(name = "name", nullable = false, unique = true)
   private String name;
-  @OneToMany(mappedBy = "person")
+  @OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST)
   @MapKey(name = "date") // Map<Person.date, Person>
   @OrderBy("date ASC")  // 이 조건이 없으면 Diary.id 순으로 정렬됨.
   private Map<LocalDate, Diary> diary = new HashMap<>();

@@ -135,4 +135,23 @@ public class PersonRepositoryTest {
         .containsExactly(entry(today.minusDays(2L), diaries.get(1)),
             entry(today.minusDays(1L), diaries.get(2)));
   }
+
+  @Test
+  void test_add() {
+    // GIVEN
+    Person person = this.repository.save(new Person("person"));
+    log.info("GIVEN - person={}", person);
+
+    Diary diary = new Diary(person, LocalDate.now(), "content");
+    log.info("GIVEN - diary={}", diary);
+
+    // WHEN
+    person.add(diary);
+    this.entityManager.flush();
+    log.info("WHEN - diary={}", diary);
+
+    // THEN
+    assertThat(diary.getId())
+        .isPositive();
+  }
 }
