@@ -1,0 +1,58 @@
+buildscript {
+  repositories {
+    jcenter()
+    mavenCentral()
+    mavenLocal()
+  }
+
+  dependencies {
+    classpath "org.springframework.boot:spring-boot-gradle-plugin:2.2.6.RELEASE"
+    classpath "io.spring.gradle:dependency-management-plugin:1.0.9.RELEASE"
+  }
+}
+
+group = 'com.github.hemoptysisheart.spring.examples'
+version = '0.0.1-SNAPSHOT'
+
+repositories {
+  jcenter()
+  mavenCentral()
+  mavenLocal()
+}
+
+subprojects {
+  apply plugin: "java"
+  apply plugin: "java-library"
+  apply plugin: "org.springframework.boot"
+  apply plugin: "io.spring.dependency-management"
+
+  sourceCompatibility = 11
+
+  dependencyManagement {
+    imports {
+      mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+    }
+
+    dependencies {
+      dependency "org.assertj:assertj-core:3.14.0"
+      dependency "org.apache.commons:commons-lang3:3.9"
+    }
+  }
+
+  dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+      exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testImplementation('org.assertj:assertj-core')
+    testImplementation('org.apache.commons:commons-lang3')
+  }
+
+  test {
+    useJUnitPlatform()
+  }
+
+  jar.enabled = true
+  bootJar.enabled = false
+}
