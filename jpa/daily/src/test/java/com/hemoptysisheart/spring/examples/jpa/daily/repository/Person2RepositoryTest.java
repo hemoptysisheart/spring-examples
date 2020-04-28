@@ -34,4 +34,21 @@ class Person2RepositoryTest {
     assertThat(list)
         .isNotNull();
   }
+
+  @Test
+  void test_save() {
+    // GIVEN
+    Person2 person = new Person2("person2");
+    log.info("GIVEN - person={}", person);
+
+    // WHEN
+    Person2 saved = this.repository.save(person);
+    log.info("WHEN - saved={}", saved);
+
+    // THEN
+    assertThat(saved)
+        .isNotNull();
+    assertThat(saved.getId())
+        .isPositive();
+  }
 }

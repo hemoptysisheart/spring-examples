@@ -13,6 +13,7 @@ import static java.lang.String.format;
 @Entity(name = "Diary2")
 @Table(name = "diary2")
 public class Diary2 {
+  @SuppressWarnings("JpaAttributeMemberSignatureInspection")
   @Embeddable
   public static class Diary2Id implements Serializable {
     private long person;
@@ -28,6 +29,14 @@ public class Diary2 {
 
     public Diary2Id(Person2 person, LocalDate date) {
       this(person.getId(), date);
+    }
+
+    public long getPerson() {
+      return this.person;
+    }
+
+    public LocalDate getDate() {
+      return this.date;
     }
 
     @Override
@@ -56,14 +65,6 @@ public class Diary2 {
       @AttributeOverride(name = "date", column = @Column(name = "date", nullable = false, updatable = false))
   })
   private Diary2Id id;
-  @ManyToOne(optional = false)
-  @JoinColumn(name = "person", nullable = false, insertable = false, updatable = false,
-      foreignKey = @ForeignKey(name = "fk_diary2_pk_person2"), referencedColumnName = "id")
-  @MapsId("person")
-  private Person2 person;
-  @Column(name = "date", nullable = false, insertable = false, updatable = false)
-  @MapsId("date")
-  private LocalDate date;
   @Column(name = "content", nullable = false)
   private String content;
 
@@ -80,21 +81,11 @@ public class Diary2 {
     if (null == content) throw new IllegalArgumentException("content is null.");
 
     this.id = new Diary2Id(person, date);
-    this.person = person;
-    this.date = date;
     this.content = content;
   }
 
   public Diary2Id getId() {
     return this.id;
-  }
-
-  public Person2 getPerson() {
-    return this.person;
-  }
-
-  public LocalDate getDate() {
-    return this.date;
   }
 
   public String getContent() {
@@ -112,7 +103,6 @@ public class Diary2 {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    Diary2 diary = (Diary2) o;
     return this.id == ((Diary2) o).id;
   }
 
@@ -123,7 +113,6 @@ public class Diary2 {
 
   @Override
   public String toString() {
-    return format("(id=%s, person=(%d, %s), date=%s, content=%s)",
-        this.id, this.person.getId(), this.person.getName(), this.date, this.content);
+    return format("(id=%s, content=%s)", this.id, this.content);
   }
 }
