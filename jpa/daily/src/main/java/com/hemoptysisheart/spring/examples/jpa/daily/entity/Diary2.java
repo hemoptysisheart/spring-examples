@@ -92,6 +92,13 @@ public class Diary2 {
     this.content = content;
   }
 
+  @PrePersist
+  private void prePersist() {
+    if (0L == this.id.person) {
+      this.id = new Diary2Id(this.person, this.date);
+    }
+  }
+
   public Diary2Id getId() {
     return this.id;
   }
