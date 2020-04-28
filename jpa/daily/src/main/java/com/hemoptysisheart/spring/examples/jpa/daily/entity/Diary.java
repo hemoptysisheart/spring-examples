@@ -7,12 +7,14 @@ import java.util.Objects;
 import static java.lang.String.format;
 
 /**
+ * {@code AUTO_INCREMENT} PK를 대체키로 가진 일기.
+ *
  * @since 2020/04/28
  */
 @Entity(name = "Diary")
 @Table(name = "diary",
-    indexes = {@Index(name = "idx_diary_person_date", columnList = "person ASC, date ASC"),
-        @Index(name = "idx_diary_date", columnList = "date ASC")})
+    uniqueConstraints = {@UniqueConstraint(name = "uq_diary", columnNames = {"person", "date"})},
+    indexes = {@Index(name = "idx_diary_date", columnList = "date ASC")})
 public class Diary {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

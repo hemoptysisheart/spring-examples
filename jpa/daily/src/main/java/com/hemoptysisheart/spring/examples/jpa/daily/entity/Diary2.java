@@ -8,6 +8,8 @@ import java.util.Objects;
 import static java.lang.String.format;
 
 /**
+ * 복합PK를 가진, {@link Person2}의 일부인 일기.
+ *
  * @since 2020/04/28
  */
 @Entity(name = "Diary2")
@@ -23,6 +25,9 @@ public class Diary2 {
     }
 
     public Diary2Id(long person, LocalDate date) {
+      if (0L >= person) throw new IllegalArgumentException("person is not positive : " + person);
+      if (null == date) throw new IllegalArgumentException("date is null.");
+
       this.person = person;
       this.date = date;
     }
@@ -43,9 +48,9 @@ public class Diary2 {
     public boolean equals(Object o) {
       if (this == o) return true;
       if (o == null || getClass() != o.getClass()) return false;
-      Diary2Id diary2Id = (Diary2Id) o;
-      return this.person == diary2Id.person &&
-                 this.date.equals(diary2Id.date);
+      Diary2Id that = (Diary2Id) o;
+      return this.person == that.person &&
+                 this.date.equals(that.date);
     }
 
     @Override
@@ -86,7 +91,9 @@ public class Diary2 {
     if (null == date) throw new IllegalArgumentException("date is null.");
     if (null == content) throw new IllegalArgumentException("content is null.");
 
-    this.id = new Diary2Id(person, date);
+    if (0L < person.getId()) {
+      this.id = new Diary2Id(person, date);
+    }
     this.person = person;
     this.date = date;
     this.content = content;
@@ -94,13 +101,24 @@ public class Diary2 {
 
   @PrePersist
   private void prePersist() {
-    if (0L == this.id.person) {
+    if (null == this.id) {
       this.id = new Diary2Id(this.person, this.date);
     }
   }
 
   public Diary2Id getId() {
+    if (null == this.id) {
+      throw new IllegalStateException("id is null.");
+    }
     return this.id;
+  }
+
+  public Person2 getPerson() {
+    return this.person;
+  }
+
+  public LocalDate getDate() {
+    return this.date;
   }
 
   public String getContent() {
@@ -128,6 +146,7 @@ public class Diary2 {
 
   @Override
   public String toString() {
-    return format("(id=%s, content=%s)", this.id, this.content);
+    return format("(id=%s, person=(%d, %s), date=%s, content=%s)",
+        this.id, this.person.getId(), this.person.getName(), this.content);
   }
 }

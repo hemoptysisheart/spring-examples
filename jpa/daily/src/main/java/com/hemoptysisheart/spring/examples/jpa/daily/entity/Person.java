@@ -10,6 +10,8 @@ import java.util.Objects;
 import static java.lang.String.format;
 
 /**
+ * {@link Diary}용 사람.
+ *
  * @since 2020/04/28
  */
 @Entity(name = "Person")
