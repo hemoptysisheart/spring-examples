@@ -13,8 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import static java.util.Comparator.comparing;
+import static java.util.Map.entry;
+import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -89,5 +94,45 @@ public class PersonRepositoryTest {
         .isNotNull()
         .extracting(Diary::getId, Diary::getDate, Diary::getContent)
         .containsSequence(diary.getId(), LocalDate.now(), "content");
+  }
+
+  @Test
+  void test_load_multiple_diary() {
+    // GIVE
+    Person person = this.repository.save(new Person("person"));
+    log.info("GIVEN - person={}", person);
+
+    LocalDate today = LocalDate.now();
+    List<Diary> temp = new ArrayList<>(List.of(new Diary(person, today.minusDays(3L), "content1"),
+        new Diary(person, today.minusDays(2L), "content2"),
+        new Diary(person, today.minusDays(1L), "content3"),
+        new Diary(person, today, "content4")));
+    Collections.shuffle(temp);
+    log.info("GIVEN - temp={}", temp);
+    List<Diary> diaries = this.diaryRepository.saveAll(temp)
+                              .stream()
+                              .sorted(comparing(Diary::getDate))
+                              .collect(toList());
+    log.info("GIVEN - diaries={}", diaries);
+
+    this.entityManager.flush();
+    this.entityManager.clear();
+
+    // WHEN
+    Person actual = this.repository.findById(person.getId()).get();
+    log.info("WHEN - actual={}", actual);
+
+    // THEN
+    assertThat(actual.getDiary())
+        .isNotNull()
+        .containsExactly(entry(today.minusDays(3L), diaries.get(0)),
+            entry(today.minusDays(2L), diaries.get(1)),
+            entry(today.minusDays(1L), diaries.get(2)),
+            entry(today, diaries.get(3)));
+
+    assertThat(actual.getDiary(today.minusDays(2L), today.minusDays(1L)))
+        .isNotNull()
+        .containsExactly(entry(today.minusDays(2L), diaries.get(1)),
+            entry(today.minusDays(1L), diaries.get(2)));
   }
 }

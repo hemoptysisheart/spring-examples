@@ -3,6 +3,7 @@ package com.hemoptysisheart.spring.examples.jpa.daily.entity;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -22,7 +23,8 @@ public class Person {
   @Column(name = "name", nullable = false, unique = true)
   private String name;
   @OneToMany(mappedBy = "person")
-  @MapKey(name = "date")
+  @MapKey(name = "date") // Map<Person.date, Person>
+  @OrderBy("date ASC")  // 이 조건이 없으면 Diary.id 순으로 정렬됨.
   private Map<LocalDate, Diary> diary = new HashMap<>();
 
   public Person() {
@@ -53,6 +55,26 @@ public class Person {
     if (null == date)
       throw new IllegalArgumentException("date is null.");
     return this.diary.get(date);
+  }
+
+  public Map<LocalDate, Diary> getDiary(LocalDate from, LocalDate to) {
+    if (null == from)
+      throw new IllegalArgumentException("from is null.");
+    if (null == to)
+      throw new IllegalArgumentException("to is null.");
+    if (from.isAfter(to))
+      throw new IllegalArgumentException(format("illegal range : from=%s, to=%s", from, to));
+
+    Map<LocalDate, Diary> temp = new LinkedHashMap<>();
+    LocalDate date = from;
+    while (date.isBefore(to) || date.equals(to)) {
+      Diary diary = this.diary.get(date);
+      if (null != diary) {
+        temp.put(date, diary);
+      }
+      date = date.plusDays(1L);
+    }
+    return temp;
   }
 
   public void add(Diary diary) {
