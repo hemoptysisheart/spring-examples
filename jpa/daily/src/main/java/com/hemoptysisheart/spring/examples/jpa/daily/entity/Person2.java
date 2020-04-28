@@ -1,6 +1,8 @@
 package com.hemoptysisheart.spring.examples.jpa.daily.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import static java.lang.String.format;
@@ -19,6 +21,9 @@ public class Person2 {
   private long id;
   @Column(name = "name", nullable = false, unique = true)
   private String name;
+  @OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST)
+  @OrderBy("date ASC")
+  private List<Diary2> diary = new ArrayList<>();
 
   public Person2() {
   }
@@ -38,6 +43,14 @@ public class Person2 {
   public void setName(String name) {
     if (null == name) throw new IllegalArgumentException("name is null.");
     this.name = name;
+  }
+
+  public void add(Diary2 diary) {
+    this.diary.add(diary);
+  }
+
+  public List<Diary2> getDiary() {
+    return this.diary;
   }
 
   @Override

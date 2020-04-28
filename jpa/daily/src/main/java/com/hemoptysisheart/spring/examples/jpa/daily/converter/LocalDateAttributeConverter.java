@@ -2,25 +2,25 @@ package com.hemoptysisheart.spring.examples.jpa.daily.converter;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
+import java.sql.Date;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
  * @since 2020/04/29
  */
 @Converter(autoApply = true)
-public class LocalDateAttributeConverter implements AttributeConverter<LocalDate, String> {
+public class LocalDateAttributeConverter implements AttributeConverter<LocalDate, Date> {
   @Override
-  public String convertToDatabaseColumn(LocalDate attribute) {
+  public Date convertToDatabaseColumn(LocalDate attribute) {
     return null == attribute
                ? null
-               : attribute.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+               : Date.valueOf(attribute);
   }
 
   @Override
-  public LocalDate convertToEntityAttribute(String dbData) {
+  public LocalDate convertToEntityAttribute(Date dbData) {
     return null == dbData
                ? null
-               : LocalDate.parse(dbData, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+               : dbData.toLocalDate();
   }
 }

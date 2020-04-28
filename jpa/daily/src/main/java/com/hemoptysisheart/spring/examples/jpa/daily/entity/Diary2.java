@@ -65,6 +65,12 @@ public class Diary2 {
       @AttributeOverride(name = "date", column = @Column(name = "date", nullable = false, updatable = false))
   })
   private Diary2Id id;
+  @ManyToOne
+  @JoinColumn(name = "person", nullable = false, insertable = false, updatable = false,
+      foreignKey = @ForeignKey(name = "fk_diary2_pk_person2"), referencedColumnName = "id")
+  private Person2 person;
+  @Column(name = "date", nullable = false, insertable = false, updatable = false)
+  private LocalDate date;
   @Column(name = "content", nullable = false)
   private String content;
 
@@ -81,6 +87,8 @@ public class Diary2 {
     if (null == content) throw new IllegalArgumentException("content is null.");
 
     this.id = new Diary2Id(person, date);
+    this.person = person;
+    this.date = date;
     this.content = content;
   }
 
