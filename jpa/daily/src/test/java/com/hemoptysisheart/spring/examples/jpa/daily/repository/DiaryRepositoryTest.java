@@ -18,7 +18,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.slf4j.LoggerFactory.getLogger;
 
 /**
- * @author justburrow
  * @since 2020/04/28
  */
 @ExtendWith(SpringExtension.class)
