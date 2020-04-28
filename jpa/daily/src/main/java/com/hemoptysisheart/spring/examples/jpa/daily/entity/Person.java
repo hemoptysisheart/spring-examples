@@ -3,6 +3,8 @@ package com.hemoptysisheart.spring.examples.jpa.daily.entity;
 import javax.persistence.*;
 import java.util.Objects;
 
+import static java.lang.String.format;
+
 /**
  * @since 2020/04/28
  */
@@ -48,5 +50,10 @@ public class Person {
   @Override
   public int hashCode() {
     return Objects.hash(this.id);
+  }
+
+  @Override
+  public String toString() {
+    return format("(id=%d, name='%s')", this.id, this.name);
   }
 }
