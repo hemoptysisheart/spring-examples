@@ -15,9 +15,7 @@ import static java.lang.String.format;
 public class Diary2 {
   @Embeddable
   public static class Diary2Id implements Serializable {
-    @Column(name = "person", nullable = false, updatable = false)
     private long person;
-    @Column(name = "date", nullable = false, updatable = false)
     private LocalDate date;
 
     public Diary2Id() {
@@ -53,6 +51,10 @@ public class Diary2 {
   }
 
   @EmbeddedId
+  @AttributeOverrides({
+      @AttributeOverride(name = "person", column = @Column(name = "person", nullable = false, updatable = false)),
+      @AttributeOverride(name = "date", column = @Column(name = "date", nullable = false, updatable = false))
+  })
   private Diary2Id id;
   @ManyToOne(optional = false)
   @JoinColumn(name = "person", nullable = false, insertable = false, updatable = false,
