@@ -21,4 +21,3 @@ logging:
     file: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%p) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%t - %X]){faint} %clr(%logger){cyan} %clr(:){faint} %m%n%wEx"
   level:
     root: info
-    org.hibernate.SQL: debug

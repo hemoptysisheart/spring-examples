@@ -1,14 +1,13 @@
 package com.hemoptysisheart.spring.examples.jpa.daily.repository;
 
-import com.hemoptysisheart.spring.examples.jpa.daily.JpaDailyConfiguration;
+import com.hemoptysisheart.spring.examples.jpa.daily.JpaDailyTestConfiguration;
 import com.hemoptysisheart.spring.examples.jpa.daily.entity.Person;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 
@@ -18,9 +17,8 @@ import static org.slf4j.LoggerFactory.getLogger;
 /**
  * @since 2020/04/28
  */
-@RunWith(SpringRunner.class)
-@DataJpaTest
-@ContextConfiguration(classes = JpaDailyConfiguration.class)
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = JpaDailyTestConfiguration.class)
 public class PersonRepositoryTest {
   protected static final Logger log = getLogger(PersonRepositoryTest.class);
 
